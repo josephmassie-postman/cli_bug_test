@@ -1,0 +1,72 @@
+$kind: http-request
+description: |-
+  ### Retrieve Account Information
+
+  This endpoint allows you to retrieve detailed information about a specific account using its account number. It provides insights into the account's balance, details, interest rate, and other relevant information.
+
+  #### Request Parameters
+
+  - **accountNumber** (path parameter): The unique identifier for the account you wish to access. This should be provided in the URL.
+      
+
+  #### Expected Response
+
+  On a successful request, the response will include the following information:
+
+  - **balance**: An object containing:
+      
+      - **available**: The amount of funds available for withdrawal.
+          
+      - **present**: The total amount currently present in the account.
+          
+  - **details**: An object providing account details:
+      
+      - **domestic**: An object containing:
+          
+          - **account**: The domestic account number.
+              
+          - **routing**: The domestic routing number.
+              
+      - **international**: An object containing:
+          
+          - **bic**: The Bank Identifier Code for international transactions.
+              
+          - **iban**: The International Bank Account Number.
+              
+  - **interestRate**: The interest rate applicable to the account.
+      
+  - **lastStatementDate**: The date of the last statement issued for the account.
+      
+  - **type**: The type of account (e.g., savings, checking).
+      
+
+  #### Notes
+
+  - Ensure that the account number provided is valid; otherwise, the request may return an error.
+      
+  - The response will be in JSON format, providing a structured overview of the account's status and details.
+url: "{{baseUrl}}/accounts/:accountNumber"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: accountNumber
+    value: "{{accountNumber}}"
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+auth:
+  type: bearer
+  credentials:
+    token: "{{bearerToken}}"
+examples: ./.resources/Overview request.resources/examples
+order: 2000

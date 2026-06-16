@@ -1,0 +1,93 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/accounts/:accountNumber"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    accountNumber: "{{accountNumber}}"
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "balance": {
+          "available": 109.58,
+          "present": 344.54
+        },
+        "details": {
+          "domestic": {
+            "account": "34183769",
+            "routing": "69437301"
+          },
+          "international": {
+            "bic": "AAQIMWT1",
+            "iban": "{AL10010054848GYQ8536W4967Q3R}"
+          }
+        },
+        "interestRate": 0.01,
+        "lastStatementDate": "Tue Oct 10 2023 00:41:55 GMT-0500 (Central Daylight Time)",
+        "type": "Savings Account"
+      }
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "balance": {
+            "type": "object",
+            "properties": {
+              "available": {
+                "type": "number"
+              },
+              "present": {
+                "type": "number"
+              }
+            }
+          },
+          "details": {
+            "type": "object",
+            "properties": {
+              "domestic": {
+                "type": "object",
+                "properties": {
+                  "account": {
+                    "type": "string"
+                  },
+                  "routing": {
+                    "type": "string"
+                  }
+                }
+              },
+              "international": {
+                "type": "object",
+                "properties": {
+                  "bic": {
+                    "type": "string"
+                  },
+                  "iban": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "interestRate": {
+            "type": "number"
+          },
+          "lastStatementDate": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      }
+order: 1000

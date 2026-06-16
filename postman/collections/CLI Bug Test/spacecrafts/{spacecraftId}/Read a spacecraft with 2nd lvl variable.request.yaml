@@ -1,0 +1,21 @@
+$kind: http-request
+url: "{{baseUrl}}/spacecrafts/:spacecraftId"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: spacecraftId
+    value: "{{foobar}}"
+    description: The unique identifier of the spacecraft
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+      pm.test("Body matches string", function () {
+          pm.expect(pm.response.text()).to.include("string_you_want_to_search");
+      });
+    language: text/javascript
+examples: ./.resources/Read a spacecraft with 2nd lvl variable.resources/examples
+order: 2000

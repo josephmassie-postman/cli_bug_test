@@ -1,0 +1,16 @@
+$kind: collection
+description: |-
+  Buy or rent spacecrafts
+
+  Contact Support:
+   Name: Jon
+variables:
+  baseUrl: example.com
+auth:
+  - id: 47be85dc-4440-4d58-9e31-7ba596b4c983
+    type: apikey
+    name: apikey auth
+    credentials:
+      key: X-Api-Key
+      value: "{{apiKey}}"
+      in: header

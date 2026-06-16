@@ -1,0 +1,70 @@
+$kind: http-request
+description: |-
+  ### Retrieve Latest Account Statement
+
+  This endpoint retrieves the latest statement for a specific account identified by the `accountNumber`. It provides a summary of the account's financial activity over a defined period, including balances, money flow, and individual transactions.
+
+  #### Request Parameters
+
+  - **accountNumber** (path parameter): The unique identifier for the account whose latest statement is being requested. Ensure that the `accountNumber` is valid to receive the correct statement.
+      
+
+  #### Response Format
+
+  The response will be a JSON object containing the following structure:
+
+  - **balance**: An object representing the account balance.
+      
+      - **closing**: The closing balance of the account.
+          
+      - **opening**: The opening balance of the account.
+          
+  - **money**: An object detailing the money flow.
+      
+      - **in**: Total amount of money received.
+          
+      - **out**: Total amount of money spent.
+          
+  - **period**: An object indicating the statement period.
+      
+      - **from**: The start date of the statement period.
+          
+      - **to**: The end date of the statement period.
+          
+  - **transactions**: An array of transaction objects, each containing:
+      
+      - **amount**: The amount of the transaction.
+          
+      - **balance**: The balance after the transaction.
+          
+      - **date**: The date of the transaction.
+          
+      - **description**: A brief description of the transaction.
+          
+      - **type**: The type of the transaction (e.g., debit, credit).
+          
+
+  #### Notes
+
+  - The response will contain all transactions within the specified period, along with the relevant balance information.
+url: "{{baseUrl}}/accounts/:accountNumber/statement/latest"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: accountNumber
+    value: "{{accountNumber}}"
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+examples: ./.resources/Latest Statement.resources/examples
+order: 1000

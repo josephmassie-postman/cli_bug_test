@@ -1,0 +1,109 @@
+$kind: http-request
+description: |-
+  ## Get Account Statement by Date
+
+  This endpoint retrieves the account statement for a specified account number within a defined date range. It provides details about the account balance, transaction history, and the period for which the statement is requested.
+
+  ### Request Parameters
+
+  - **accountNumber** (path parameter): The unique identifier for the account whose statement is being requested.
+      
+  - **from** (query parameter): The start date for the statement period in the format `DDMMMYYYY` (e.g., `01Aug2025`).
+      
+  - **to** (query parameter): The end date for the statement period in the same format (e.g., `31Aug2025`).
+      
+
+  ### Response Structure
+
+  The response will return a JSON object containing the following fields:
+
+  - **balance**: An object that includes:
+      
+      - **closing**: The closing balance of the account at the end of the specified period.
+          
+      - **opening**: The opening balance of the account at the beginning of the specified period.
+          
+  - **money**: An object that summarizes the money flow:
+      
+      - **in**: Total amount of money credited to the account during the specified period.
+          
+      - **out**: Total amount of money debited from the account during the specified period.
+          
+  - **period**: An object indicating the date range for the statement:
+      
+      - **from**: The start date of the statement period.
+          
+      - **to**: The end date of the statement period.
+          
+  - **transactions**: An array of transaction objects, each containing:
+      
+      - **amount**: The amount of the transaction.
+          
+      - **balance**: The balance after the transaction.
+          
+      - **date**: The date of the transaction.
+          
+      - **description**: A brief description of the transaction.
+          
+      - **type**: The type of transaction (e.g., credit or debit).
+          
+
+  ### Example Response
+
+  ``` json
+  {
+    "balance": {
+      "closing": 0,
+      "opening": 0
+    },
+    "money": {
+      "in": 0,
+      "out": 0
+    },
+    "period": {
+      "from": "",
+      "to": ""
+    },
+    "transactions": [
+      {
+        "amount": 0,
+        "balance": 0,
+        "date": "",
+        "description": "",
+        "type": ""
+      }
+    ]
+  }
+
+   ```
+
+  This endpoint is useful for users who need to review their account activity and balances over a specific time frame.
+url: "{{baseUrl}}/accounts/:accountNumber/statement/date?from=01Aug2025&to=31Aug2025"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: from
+    value: 01Aug2025
+    $type: string
+  - key: to
+    value: 31Aug2025
+    description: End of period
+    $type: string
+pathVariables:
+  - key: accountNumber
+    value: "{{accountNumber}}"
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+examples: ./.resources/Date Statements.resources/examples
+order: 1000

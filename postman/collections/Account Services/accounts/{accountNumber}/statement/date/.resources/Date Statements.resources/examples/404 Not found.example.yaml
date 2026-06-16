@@ -1,0 +1,23 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/accounts/:accountNumber/statement/date?from=01Aug2025&to=31Aug2025"
+  method: GET
+  headers:
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  queryParams:
+    - key: from
+      value: 01Aug2025
+    - key: to
+      value: 31Aug2025
+      description: End of period
+  pathVariables:
+    accountNumber: "{{accountNumber}}"
+response:
+  statusCode: 404
+  statusText: Not Found
+  body:
+    type: text
+    content: ""
+order: 2000
