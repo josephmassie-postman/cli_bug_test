@@ -1,0 +1,246 @@
+openapi: 3.0.0
+servers:
+  - url: example.com
+info:
+  title: CLI Bug test
+  version: 1.0.0
+  description: |-
+    Buy or rent spacecrafts
+
+    Contact Support:
+     Name: Jon
+  contact:
+    name: Jon
+paths:
+  /spacecrafts/{spacecraftId}:
+    parameters:
+      - name: spacecraftId
+        description: The unique identifier of the spacecraft
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/SpacecraftId'
+    get:
+      summary: Read a spacecraft
+      responses:
+        '200':
+          description: The spacecraft corresponding to the provided `spacecraftId`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Spacecraft'
+        '404':
+          description: No spacecraft found for the provided `spacecraftId`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /spacecrafts/foo:
+    get:
+      summary: New Request
+      responses: {}
+  /accounts/{accountNumber}:
+    patch:
+      summary: Update
+      parameters:
+        - name: x-mock-response-code
+          in: header
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Update Account
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  details:
+                    type: object
+                    properties:
+                      domestic:
+                        type: object
+                        properties:
+                          account:
+                            type: string
+                            format: utc-millisec
+                          routing:
+                            type: string
+                            format: utc-millisec
+                      international:
+                        type: object
+                        properties:
+                          bic:
+                            type: string
+                          iban:
+                            type: string
+                  type:
+                    type: string
+      description: >-
+        ## PATCH /accounts/:accountNumber
+
+
+        This endpoint allows you to update the details of a specific account
+        identified by `accountNumber`. The request is made using the HTTP PATCH
+        method, which is typically used for partial updates to resources.
+
+
+        ### Request Body
+
+
+        The request requires a JSON payload with the following structure:
+
+
+        - **holder** (object): Contains the account holder's information.
+            
+            - **address** (object): The address details of the account holder.
+                
+                - **city** (string): The city where the account holder resides.
+                    
+                - **country** (string): The country of the account holder.
+                    
+                - **street** (string): The street address of the account holder.
+                    
+            - **dob** (string): The date of birth of the account holder.
+                
+            - **name** (object): The name details of the account holder.
+                
+                - **first** (string): The first name of the account holder.
+                    
+                - **last** (string): The last name of the account holder.
+                    
+                - **middle** (string): The middle name of the account holder (optional).
+                    
+        - **type** (string): The type of account being updated.
+            
+
+        ### Response
+
+
+        The response will return a status code indicating the result of the
+        request. A successful update typically returns a JSON object with
+        account details. However, if the account is not found, a `404 Not Found`
+        status will be returned, along with an error message in JSON format:
+
+
+        ``` json
+
+        {
+          "error": ""
+        }
+
+         ```
+
+        In case of a successful update, the response may look like this:
+
+
+        ``` json
+
+        {
+          "details": {
+            "domestic": {
+              "account": "",
+              "routing": ""
+            },
+            "international": {
+              "bic": "",
+              "iban": ""
+            }
+          },
+          "type": ""
+        }
+
+         ```
+
+        ### Notes
+
+
+        - Ensure that the `accountNumber` in the URL is valid and corresponds to
+        an existing account.
+            
+        - The payload must be correctly formatted as per the specified structure
+        to avoid errors.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                holder:
+                  type: object
+                  properties:
+                    address:
+                      type: object
+                      properties:
+                        city:
+                          type: string
+                        country:
+                          type: string
+                        street:
+                          type: string
+                    dob:
+                      type: string
+                    name:
+                      type: object
+                      properties:
+                        first:
+                          type: string
+                        last:
+                          type: string
+                        middle:
+                          type: string
+                type:
+                  type: string
+    parameters:
+      - name: accountNumber
+        in: path
+        required: true
+        schema:
+          type: string
+components:
+  schemas:
+    SpacecraftId:
+      description: The unique identifier of a spacecraft
+      type: string
+    Spacecraft:
+      type: object
+      required:
+        - id
+        - name
+        - type
+      properties:
+        id:
+          $ref: '#/components/schemas/SpacecraftId'
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+            - capsule
+            - probe
+            - satellite
+            - spaceplane
+            - station
+        description:
+          type: string
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          description: A human readable error message
+          type: string
+  securitySchemes:
+    ApiKey:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+security:
+  - ApiKey: []

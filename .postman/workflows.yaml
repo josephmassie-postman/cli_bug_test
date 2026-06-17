@@ -13,12 +13,20 @@ workflows:
       collection: ../postman/collections/CLI Bug Test
       options:
         syncExamples: false
+    - spec: ../cli_bug_test.yaml
+      collection: ../postman/collections/CLI Bug Test
+      options:
+        syncExamples: false
   syncCollectionToSpec:
     - spec: ../index.yaml
       collection: ../postman/collections/Account Services
       options:
         syncExamples: false
     - spec: ../index.yaml
+      collection: ../postman/collections/CLI Bug Test
+      options:
+        syncExamples: false
+    - spec: ../cli_bug_test.yaml
       collection: ../postman/collections/CLI Bug Test
       options:
         syncExamples: false

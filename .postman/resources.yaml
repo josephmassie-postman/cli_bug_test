@@ -1,11 +1,13 @@
 workspace:
   id: 74225152-6a57-4e1e-8e48-b7b88c1e9c0b
+localResources:
+  specs:
+    - ../index.yaml
+    - ../cli_bug_test.yaml
 cloudResources:
   collections:
     ../postman/collections/CLI Bug Test: 53497454-5473d825-d11d-4253-a06c-28b715315ba3
     ../postman/collections/Account Services: 53497454-b692e60d-78a3-44c6-bc0c-c64a05b81dbe
   specs:
-    ../index.yaml: 5bba7cd4-d537-41ab-bb31-a8b7524a9f1e
-localResources:
-  specs:
-    - ../index.yaml
+    ../index.yaml: 20039820-fd0c-43ce-8724-704e820882b8
+    ../cli_bug_test.yaml: 5bba7cd4-d537-41ab-bb31-a8b7524a9f1e

@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{baseUrl}}/spacecrafts/foo"
+method: GET
+order: 1000

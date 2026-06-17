@@ -1,0 +1,93 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/accounts/:accountNumber"
+  method: PATCH
+  headers:
+    - key: x-mock-response-code
+      value: "2056"
+    - key: Content-Type
+      value: application/json
+    - key: Accept
+      value: application/json
+    - key: X-Api-Key
+      value: <API Key>
+      description: "Added as a part of security scheme: apikey"
+  pathVariables:
+    accountNumber: string
+  body:
+    type: json
+    content: |-
+      {
+        "holder": {
+          "address": {
+            "city": "string",
+            "country": "string",
+            "street": "string"
+          },
+          "dob": "string",
+          "name": {
+            "first": "string",
+            "last": "string",
+            "middle": "string"
+          }
+        },
+        "type": "string"
+      }
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "details": {
+          "domestic": {
+            "account": "string",
+            "routing": "string"
+          },
+          "international": {
+            "bic": "string",
+            "iban": "string"
+          }
+        },
+        "type": "string"
+      }
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "details": {
+            "type": "object",
+            "properties": {
+              "domestic": {
+                "type": "object",
+                "properties": {
+                  "account": {
+                    "type": "string"
+                  },
+                  "routing": {
+                    "type": "string"
+                  }
+                }
+              },
+              "international": {
+                "type": "object",
+                "properties": {
+                  "bic": {
+                    "type": "string"
+                  },
+                  "iban": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      }
+order: 1000

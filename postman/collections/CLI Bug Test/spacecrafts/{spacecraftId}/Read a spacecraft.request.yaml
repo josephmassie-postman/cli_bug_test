@@ -1,12 +1,11 @@
 $kind: http-request
-name: Read a spacecraft
 url: "{{baseUrl}}/spacecrafts/:spacecraftId"
 method: GET
 headers:
   Accept: application/json
 pathVariables:
   - key: spacecraftId
-    value: "{{example}}"
+    value: string
     description: The unique identifier of the spacecraft
     $type: |-
       {

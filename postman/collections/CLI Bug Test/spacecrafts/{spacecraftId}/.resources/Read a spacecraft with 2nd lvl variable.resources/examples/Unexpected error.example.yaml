@@ -23,4 +23,17 @@ response:
       {
         "message": "string"
       }
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "A human readable error message"
+          }
+        },
+        "required": [
+          "message"
+        ]
+      }
 order: 3000

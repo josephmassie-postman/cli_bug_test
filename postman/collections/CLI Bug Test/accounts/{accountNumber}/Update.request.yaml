@@ -1,0 +1,159 @@
+$kind: http-request
+description: |-
+  ## PATCH /accounts/:accountNumber
+
+  This endpoint allows you to update the details of a specific account identified by `accountNumber`. The request is made using the HTTP PATCH method, which is typically used for partial updates to resources.
+
+  ### Request Body
+
+  The request requires a JSON payload with the following structure:
+
+  - **holder** (object): Contains the account holder's information.
+      
+      - **address** (object): The address details of the account holder.
+          
+          - **city** (string): The city where the account holder resides.
+              
+          - **country** (string): The country of the account holder.
+              
+          - **street** (string): The street address of the account holder.
+              
+      - **dob** (string): The date of birth of the account holder.
+          
+      - **name** (object): The name details of the account holder.
+          
+          - **first** (string): The first name of the account holder.
+              
+          - **last** (string): The last name of the account holder.
+              
+          - **middle** (string): The middle name of the account holder (optional).
+              
+  - **type** (string): The type of account being updated.
+      
+
+  ### Response
+
+  The response will return a status code indicating the result of the request. A successful update typically returns a JSON object with account details. However, if the account is not found, a `404 Not Found` status will be returned, along with an error message in JSON format:
+
+  ``` json
+  {
+    "error": ""
+  }
+
+   ```
+
+  In case of a successful update, the response may look like this:
+
+  ``` json
+  {
+    "details": {
+      "domestic": {
+        "account": "",
+        "routing": ""
+      },
+      "international": {
+        "bic": "",
+        "iban": ""
+      }
+    },
+    "type": ""
+  }
+
+   ```
+
+  ### Notes
+
+  - Ensure that the `accountNumber` in the URL is valid and corresponds to an existing account.
+      
+  - The payload must be correctly formatted as per the specified structure to avoid errors.
+url: "{{baseUrl}}/accounts/:accountNumber"
+method: PATCH
+headers:
+  - key: x-mock-response-code
+    value: "2056"
+    $type: integer
+  - key: Content-Type
+    value: application/json
+  - key: Accept
+    value: application/json
+pathVariables:
+  - key: accountNumber
+    value: string
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+body:
+  type: json
+  content: |-
+    {
+      "holder": {
+        "address": {
+          "city": "string",
+          "country": "string",
+          "street": "string"
+        },
+        "dob": "string",
+        "name": {
+          "first": "string",
+          "last": "string",
+          "middle": "string"
+        }
+      },
+      "type": "string"
+    }
+  $type: |-
+    {
+      "type": "object",
+      "properties": {
+        "holder": {
+          "type": "object",
+          "properties": {
+            "address": {
+              "type": "object",
+              "properties": {
+                "city": {
+                  "type": "string"
+                },
+                "country": {
+                  "type": "string"
+                },
+                "street": {
+                  "type": "string"
+                }
+              }
+            },
+            "dob": {
+              "type": "string"
+            },
+            "name": {
+              "type": "object",
+              "properties": {
+                "first": {
+                  "type": "string"
+                },
+                "last": {
+                  "type": "string"
+                },
+                "middle": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    }
+examples: ./.resources/Update.resources/examples
+order: 1000

@@ -30,7 +30,7 @@ description: |-
 variables:
   baseUrl: "{{baseUrl}}"
 auth:
-  - id: 12eb181e-a9a2-4996-bdbb-a2006f75d70d
+  - id: 9ac23331-1b86-4150-853f-39a0b9770dee
     type: bearer
     name: bearer auth
     credentials:
